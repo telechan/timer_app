@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
-class ScoreRoute extends StatelessWidget {
+class CounterRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("スコアカウンター"),
+        title: Text("カウンター"),
       ),
       body: Center(
-        child: Text("スコアカウンターページ"),
+        child: Text("カウンターページ"),
       ),
     );
   }
 }
+

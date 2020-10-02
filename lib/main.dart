@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:timer_app/footer.dart';
-import 'footer.dart';
 
 void main() {
   runApp(Myapp());

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'routes/timer_route.dart';
-import 'routes/score_route.dart';
+import 'routes/counter_route.dart';
+import 'routes/dice_route.dart';
 
 class Footer extends StatefulWidget {
   Footer({Key key}) : super(key: key);
@@ -15,17 +16,20 @@ class _FooterState extends State<Footer> {
 
   static const _footerIcons = [
     Icons.access_time,
-    Icons.assignment,
+    Icons.star,
+    Icons.casino,
   ];
 
   static const _footerNames = [
     'タイマー',
-    'スコアカウンター',
+    'カウンター',
+    'サイコロ',
   ];
 
   var _routes = [
     TimerRoute(),
-    ScoreRoute(),
+    CounterRoute(),
+    DiceRoute(),
   ];
 
   void _onItemTapped(int index) {
