@@ -5,10 +5,10 @@ class ScoreRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("スコア"),
+        title: Text("スコアカウンター"),
       ),
       body: Center(
-        child: Text("スコアページ"),
+        child: Text("スコアカウンターページ"),
       ),
     );
   }
