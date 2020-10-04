@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../setting_routes/setting_time.dart';
 
 class TimerRoute extends StatelessWidget {
   @override
