@@ -12,9 +12,10 @@ class TimerRoute extends StatefulWidget {
 
 class _TimerRouteState extends State<TimerRoute> {
   Timer _timer;
-  int _start = Duration(seconds: 30).inMilliseconds;
-  int _current;
-  double _percent = 1.0;
+  static Duration _msec = Duration(milliseconds: 20);
+  static int _start = Duration(seconds: 10).inMilliseconds;
+  static int _current = _start;
+  static double _percent = 1.0;
 
   @override
   void initState() {
@@ -22,7 +23,7 @@ class _TimerRouteState extends State<TimerRoute> {
     super.initState();
   }
 
-  void restartTimer() {
+  void startTimer() {
     if (_timer != null) {
       _timer.cancel();
     }
@@ -30,7 +31,16 @@ class _TimerRouteState extends State<TimerRoute> {
       _current = _start;
       _percent = 1.0;
     });
-    _timer = new Timer.periodic(Duration(milliseconds: 20), _countDown);
+    _timer = new Timer.periodic(_msec, _countDown);
+  }
+
+  void restartTimer() {
+    if (_timer != null) {
+      _timer.cancel();
+      _timer = null;
+    } else {
+      _timer = Timer.periodic(_msec, _countDown);
+    }
   }
 
   void _countDown(Timer timer) {
@@ -38,7 +48,7 @@ class _TimerRouteState extends State<TimerRoute> {
       if (_current < 1) {
         timer.cancel();
       } else {
-        _current -= 20;
+        _current -= _msec.inMilliseconds;
         _percent = (_current.toDouble() / _start.toDouble());
       }
     });
@@ -79,7 +89,8 @@ class _TimerRouteState extends State<TimerRoute> {
           Container(
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTap: restartTimer,
+              onDoubleTap: restartTimer,
+              onTap: startTimer,
             ),
           ),
         ],
