@@ -27,7 +27,7 @@ class _FooterState extends State<Footer> {
   ];
 
   var _routes = [
-    TimerRoute(),
+    TimerRoute(title: 'タイマー'),
     CounterRoute(),
     DiceRoute(),
   ];
@@ -50,13 +50,9 @@ class _FooterState extends State<Footer> {
     return BottomNavigationBarItem(
       icon: Icon(
         _footerIcons[index],
-        // color: Colors.black26,
       ),
       title: Text(
         _footerNames[index],
-        // style: TextStyle(
-        //   color: Colors.black26,
-        // ),
       )
     );
   }
