@@ -12,8 +12,9 @@ class TimerRoute extends StatefulWidget {
 
 class _TimerRouteState extends State<TimerRoute> {
   Timer _timer;
-  int _start = 10;
+  int _start = Duration(seconds: 30).inMilliseconds;
   int _current;
+  double _percent = 1.0;
 
   @override
   void initState() {
@@ -27,8 +28,9 @@ class _TimerRouteState extends State<TimerRoute> {
     }
     setState(() {
       _current = _start;
+      _percent = 1.0;
     });
-    _timer = new Timer.periodic(Duration(seconds: 1), _countDown);
+    _timer = new Timer.periodic(Duration(milliseconds: 20), _countDown);
   }
 
   void _countDown(Timer timer) {
@@ -36,14 +38,17 @@ class _TimerRouteState extends State<TimerRoute> {
       if (_current < 1) {
         timer.cancel();
       } else {
-        _current -= 1;
+        _current -= 20;
+        _percent = (_current.toDouble() / _start.toDouble());
       }
     });
   }
 
   @override
   void dispose() {
-    _timer.cancel();
+    if (_timer != null) {
+      _timer.cancel();
+    }
     super.dispose();
   }
 
@@ -54,10 +59,21 @@ class _TimerRouteState extends State<TimerRoute> {
         children: <Widget>[
           Center(
             child: Text(
-              "$_current",
+              "${Duration(milliseconds: _current).inSeconds}",
               style: TextStyle(
                 fontSize: 70,
               ),
+            ),
+          ),
+          Center(
+            child: SizedBox(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.black12,
+                strokeWidth: 30,
+                value: _percent,
+              ),
+              height: 300,
+              width: 300,
             ),
           ),
           Container(
