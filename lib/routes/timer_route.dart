@@ -20,6 +20,7 @@ class _TimerRouteState extends State<TimerRoute> {
   @override
   void initState() {
     _current = _start;
+    _percent = 1.0;
     super.initState();
   }
 
