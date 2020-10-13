@@ -12,13 +12,15 @@ class TimerRoute extends StatefulWidget {
 
 class _TimerRouteState extends State<TimerRoute> {
   Timer _timer;
+  static int _setSecond = 30;
   static Duration _msec = Duration(milliseconds: 20);
-  static int _start = Duration(seconds: 10).inMilliseconds;
-  static int _current = _start;
-  static double _percent = 1.0;
+  static int _start;
+  static int _current;
+  static double _percent;
 
   @override
   void initState() {
+    _start = Duration(seconds: _setSecond).inMilliseconds;
     _current = _start;
     _percent = 1.0;
     super.initState();
@@ -60,19 +62,48 @@ class _TimerRouteState extends State<TimerRoute> {
     if (_timer != null) {
       _timer.cancel();
     }
+    print("despose");
     super.dispose();
   }
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(
+        title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            onPressed: () async {
+              if (_timer != null) {
+                _timer.cancel();
+                _timer = null;
+              }
+              _setSecond = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SetTimeRoute(setTime: _setSecond),
+                        fullscreenDialog: true),
+                  ) ??
+                  _setSecond;
+              setState(() {
+                _start = _start = Duration(seconds: _setSecond).inMilliseconds;
+                _current = _start;
+                _percent = 1.0;
+              });
+            },
+          ),
+        ],
+      ),
       body: Stack(
         children: <Widget>[
           Center(
             child: Text(
               "${Duration(milliseconds: _current).inSeconds}",
               style: TextStyle(
-                fontSize: 70,
+                fontSize: 100,
               ),
             ),
           ),
@@ -80,7 +111,7 @@ class _TimerRouteState extends State<TimerRoute> {
             child: SizedBox(
               child: CircularProgressIndicator(
                 backgroundColor: Colors.black12,
-                strokeWidth: 30,
+                strokeWidth: 55,
                 value: _percent,
               ),
               height: 300,
